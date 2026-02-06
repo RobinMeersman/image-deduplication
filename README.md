@@ -6,7 +6,7 @@ A file is created containing the duplicate images (1 per line written as `<image
 
 # Usage
 ```bash
-python main.py -i <input directory> -o <output file>```
+python main.py -i <input directory> [-o <output file>]```
 ```
 
 # Dependencies
