@@ -2,6 +2,7 @@ import argparse as ap
 from PIL import Image
 import imagehash
 import os
+from tqdm import tqdm
 
 
 def arg_parser() -> ap.Namespace:
@@ -13,9 +14,10 @@ def arg_parser() -> ap.Namespace:
 def compute_hashes(input_dir: str) -> dict:
     hashes = dict()
 
-    for f in os.listdir(input_dir):
+    print(f'Computing hashes for {input_dir}')
+    for f in tqdm(os.listdir(input_dir)):
         image_path = os.path.join(input_dir, f)
-        if os.path.isfile(image_path):
+        if os.path.isfile(image_path) and os.path.splitext(image_path)[1].lower() in ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp']:
             hashes[f] = imagehash.average_hash(Image.open(image_path))
 
     return hashes
@@ -26,7 +28,8 @@ def compute_duplicates(hashes: dict[str, imagehash.ImageHash]) -> list[tuple[str
     duplicates: list[tuple[str, str]] = list()
     boundary = 5
 
-    for i in range(len(keys)):
+    print(f'Computing duplicates for {len(keys)} images')
+    for i in tqdm(range(len(keys))):
         for j in range(i + 1, len(keys)):
             h1 = hashes[keys[i]]
             h2 = hashes[keys[j]]
