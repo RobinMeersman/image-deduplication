@@ -5,5 +5,6 @@ description = "Add your description here"
 requires-python = ">=3.12"
 dependencies = [
     "imagehash>=4.3.2",
+    "scikit-image>=0.26.0",
     "tqdm>=4.67.3",
 ]
